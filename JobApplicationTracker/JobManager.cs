@@ -67,6 +67,16 @@ public class JobManager
     {
         Console.WriteLine("\n--- STATISTIK ---");
         Console.WriteLine($"Totalt antal ansökningar: {Applications.Count}");
+        if (Applications.Any())
+        {
+            var highestSalary = Applications
+                .OrderByDescending(a => a.SalaryExpectation)
+                .First();
+
+            Console.WriteLine(
+                $"Högsta önskade lön: {highestSalary.SalaryExpectation:N0} kr " +
+                $"hos {highestSalary.CompanyName}");
+        }
 
         foreach (ApplicationStatus status in Enum.GetValues<ApplicationStatus>())
         {
