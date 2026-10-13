@@ -1,0 +1,7 @@
+1. Hur hjälpte LINQ dig att skriva renare kod?
+LINQ gör det enklare att filtrera, sortera och beräkna information från listor utan att behöva skriva 
+lika många loopar. Jag använder till exempel LINQ för att filtrera jobbansökningar efter status och sortera dem efter datum.
+
+2. Vilken del av projektet var mest utmanande, och hur löste du den?
+Den mest utmanande delen var att strukturera programmet med flera klasser och få dem att samarbeta. 
+Jag löste det genom att dela upp ansvaret mellan klasserna och testa programmet steg för steg.
