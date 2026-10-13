@@ -53,7 +53,7 @@ public class JobManager
     public void ShowSortedByDate()
     {
         var sorted = Applications
-            .OrderBy(a => a.ApplicationDate)
+            .OrderByDescending(a => a.ApplicationDate)
             .ToList();
 
         foreach (var application in sorted)
