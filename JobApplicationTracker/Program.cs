@@ -4,11 +4,13 @@ namespace JobApplicationTracker;
 
 class Program
 {
+    // Programmets startpunkt
     static void Main()
     {
         JobManager manager = new JobManager();
         bool running = true;
 
+        // Visar menyn tills användaren väljer att avsluta
         while (running)
         {
             Console.WriteLine("\n===== JOB APPLICATION TRACKER =====");
@@ -23,8 +25,10 @@ class Program
             Console.WriteLine("9. Avsluta");
             Console.Write("Välj alternativ: ");
 
+            // Läser in användarens menyval
             string choice = Console.ReadLine() ?? "";
 
+            // Väljer vilken funktion som ska köras
             switch (choice)
             {
                 case "1":
@@ -60,6 +64,7 @@ class Program
                     break;
 
                 case "9":
+                    // Avslutar while-loopen
                     running = false;
                     Console.WriteLine("Programmet avslutas.");
                     break;
@@ -71,6 +76,7 @@ class Program
         }
     }
 
+    // Lägger till en ny jobbansökan
     static void AddApplication(JobManager manager)
     {
         Console.Write("Företag: ");
@@ -87,10 +93,12 @@ class Program
 
         DateTime applicationDate;
 
+        // Om inget datum anges används dagens datum
         if (string.IsNullOrWhiteSpace(dateInput))
         {
             applicationDate = DateTime.Today;
         }
+        // Kontrollerar att datumet är giltigt och inte ligger i framtiden
         else if (!DateTime.TryParse(dateInput, out applicationDate) ||
                  applicationDate.Date > DateTime.Today)
         {
@@ -98,6 +106,7 @@ class Program
             return;
         }
 
+        // Skapar ett nytt jobbansökningsobjekt
         JobApplication application = new JobApplication(
             company,
             position,
@@ -106,17 +115,22 @@ class Program
             null,
             salary);
 
+        // Lägger till ansökan via JobManager
         manager.AddJob(application);
     }
 
+    // Uppdaterar statusen för en befintlig ansökan
     static void UpdateApplication(JobManager manager)
     {
         manager.ShowAll();
 
+        // Avslutar metoden om listan är tom
         if (manager.Applications.Count == 0)
             return;
 
         Console.Write("Vilket ansökningsnummer vill du uppdatera? ");
+
+        // Minus 1 eftersom listans index börjar på 0
         int index = ReadInt() - 1;
 
         Console.WriteLine("Välj den nya statusen:");
@@ -125,21 +139,27 @@ class Program
         manager.UpdateStatus(index, status);
     }
 
+    // Tar bort en jobbansökan
     static void RemoveApplication(JobManager manager)
     {
         manager.ShowAll();
 
+        // Det finns inget att ta bort om listan är tom
         if (manager.Applications.Count == 0)
             return;
 
         Console.Write("Vilket ansökningsnummer vill du ta bort? ");
+
+        // Omvandlar användarens nummer till ett listindex
         int index = ReadInt() - 1;
 
         manager.RemoveJob(index);
     }
 
+    // Läser in och returnerar användarens valda status
     static ApplicationStatus ReadStatus()
     {
+        // Frågar igen tills användaren väljer en giltig status
         while (true)
         {
             Console.WriteLine("1. Applied");
@@ -165,6 +185,7 @@ class Program
         }
     }
 
+    // Läser in ett heltal och försöker igen om inmatningen är ogiltig
     static int ReadInt()
     {
         while (true)
@@ -176,6 +197,7 @@ class Program
         }
     }
 
+    // Kontrollerar att ett heltal inte är negativt
     static int ReadNonNegativeInt()
     {
         while (true)
@@ -189,6 +211,7 @@ class Program
         }
     }
 
+    // Läser in text och kontrollerar att fältet inte är tomt
     static string ReadRequiredText()
     {
         while (true)
